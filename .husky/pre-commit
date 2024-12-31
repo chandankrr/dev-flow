@@ -1,0 +1,19 @@
+echo "🚀 Starting pre-commit checks..."
+
+# Run ESLint
+echo "⌛ Running ESLint..."
+bun run lint ||
+(
+    echo "❌ ESLint check failed. Please fix the issues and try committing again."
+    false;
+)
+
+# Run lint-staged for formatting and additional checks
+echo "⌛ Running formatting checks..."
+bun lint-staged ||
+(
+    echo "❌ Code formatting check failed. Please fix the formatting issues and try again."
+    false;
+)
+
+echo "✅ All checks passed! Proceeding with commit..."
