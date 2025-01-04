@@ -1,7 +1,7 @@
 "use client";
 
-import { CirclePlus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { PiPlusCircleFill } from "react-icons/pi";
 
 import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
 import { WorkspaceAvatar } from "@/features/workspaces/components/workspace-avatar";
@@ -30,7 +30,7 @@ export const WorkspaceSwitcher = () => {
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center justify-between">
         <p className="text-xs uppercase text-neutral-500">Workspaces</p>
-        <CirclePlus
+        <PiPlusCircleFill
           onClick={open}
           className="size-5 cursor-pointer fill-neutral-500 text-white transition hover:opacity-75"
         />

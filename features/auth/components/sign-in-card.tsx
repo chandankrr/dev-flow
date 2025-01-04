@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Icons } from "@/features/auth/components/icons";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useLogin } from "../api/use-login";
@@ -95,7 +96,10 @@ export const SignInCard = () => {
           size="lg"
           className="w-full"
         >
-          <Icons.google size={22} className="mr-2" />
+          <Icons.google
+            size={22}
+            className={cn("mr-2", isPending && "fill-muted-foreground")}
+          />
           Login with Google
         </Button>
         <Button
@@ -104,7 +108,10 @@ export const SignInCard = () => {
           size="lg"
           className="w-full"
         >
-          <Icons.github size={20} className="mr-2" />
+          <Icons.github
+            size={20}
+            className={cn("mr-2", isPending && "fill-muted-foreground/40")}
+          />
           Login with GitHub
         </Button>
       </CardContent>
