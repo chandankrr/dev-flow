@@ -20,6 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useCreateWorkspace } from "../api/use-create-workspace";
@@ -156,6 +157,7 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
                   variant="secondary"
                   disabled={isPending}
                   onClick={onCancel}
+                  className={cn(!onCancel && "invisible")}
                 >
                   Cancel
                 </Button>
