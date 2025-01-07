@@ -7,31 +7,26 @@ import { getMember } from "../members/utils";
 import { Workspace } from "./types";
 
 export const getWorkplaces = async () => {
-  try {
-    const { account, databases } = await createSessionClient();
+  const { account, databases } = await createSessionClient();
 
-    const user = await account.get();
+  const user = await account.get();
 
-    const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
-      Query.equal("userId", user.$id),
-    ]);
+  const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
+    Query.equal("userId", user.$id),
+  ]);
 
-    if (members.total === 0) {
-      return { documents: [], total: 0 };
-    }
-
-    const workspaceIds = members.documents.map((member) => member.workspaceId);
-
-    const workspaces = await databases.listDocuments(
-      DATABASE_ID,
-      WORKSPACES_ID,
-      [Query.orderDesc("$createdAt"), Query.contains("$id", workspaceIds)]
-    );
-
-    return workspaces;
-  } catch {
+  if (members.total === 0) {
     return { documents: [], total: 0 };
   }
+
+  const workspaceIds = members.documents.map((member) => member.workspaceId);
+
+  const workspaces = await databases.listDocuments(DATABASE_ID, WORKSPACES_ID, [
+    Query.orderDesc("$createdAt"),
+    Query.contains("$id", workspaceIds),
+  ]);
+
+  return workspaces;
 };
 
 interface GetWorkplaceProps {
@@ -39,31 +34,27 @@ interface GetWorkplaceProps {
 }
 
 export const getWorkplace = async ({ workspaceId }: GetWorkplaceProps) => {
-  try {
-    const { account, databases } = await createSessionClient();
+  const { account, databases } = await createSessionClient();
 
-    const user = await account.get();
+  const user = await account.get();
 
-    const members = await getMember({
-      databases,
-      userId: user.$id,
-      workspaceId,
-    });
+  const members = await getMember({
+    databases,
+    userId: user.$id,
+    workspaceId,
+  });
 
-    if (!members) {
-      return null;
-    }
-
-    const workspace = await databases.getDocument<Workspace>(
-      DATABASE_ID,
-      WORKSPACES_ID,
-      workspaceId
-    );
-
-    return workspace;
-  } catch {
-    return null;
+  if (!members) {
+    throw new Error("Unauthorized");
   }
+
+  const workspace = await databases.getDocument<Workspace>(
+    DATABASE_ID,
+    WORKSPACES_ID,
+    workspaceId
+  );
+
+  return workspace;
 };
 
 interface GetWorkplaceInfoProps {
@@ -73,17 +64,13 @@ interface GetWorkplaceInfoProps {
 export const getWorkplaceInfo = async ({
   workspaceId,
 }: GetWorkplaceInfoProps) => {
-  try {
-    const { databases } = await createSessionClient();
+  const { databases } = await createSessionClient();
 
-    const workspace = await databases.getDocument<Workspace>(
-      DATABASE_ID,
-      WORKSPACES_ID,
-      workspaceId
-    );
+  const workspace = await databases.getDocument<Workspace>(
+    DATABASE_ID,
+    WORKSPACES_ID,
+    workspaceId
+  );
 
-    return { name: workspace.name };
-  } catch {
-    return null;
-  }
+  return { name: workspace.name };
 };
