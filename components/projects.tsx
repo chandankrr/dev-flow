@@ -11,7 +11,6 @@ import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
 
 export const Projects = () => {
-  const projectId = null; // TODO: Use the useProjectId hook
   const workspaceId = useWorkspaceId();
   const pathname = usePathname();
 
@@ -28,7 +27,7 @@ export const Projects = () => {
         />
       </div>
       {data?.documents.map((project) => {
-        const href = `/workspaces/${workspaceId}/projects/${projectId}`;
+        const href = `/workspaces/${workspaceId}/projects/${project.$id}`;
         const isActive = pathname === href;
 
         return (
