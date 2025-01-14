@@ -20,7 +20,13 @@ import { DataFilters } from "./data-filters";
 import { DataKanban } from "./data-kanban";
 import { DataTable } from "./data-table";
 
-export const TaskViewSwitcher = () => {
+interface TaskViewSwitcherProps {
+  hideProjectFilter?: boolean;
+}
+
+export const TaskViewSwitcher = ({
+  hideProjectFilter,
+}: TaskViewSwitcherProps) => {
   const workspaceId = useWorkspaceId();
 
   const [view, setView] = useQueryState("task-view", {
@@ -73,7 +79,7 @@ export const TaskViewSwitcher = () => {
           </Button>
         </div>
         <DottedSeparater className="my-4" />
-        <DataFilters />
+        <DataFilters hideProjectFilter={hideProjectFilter} />
         <DottedSeparater className="my-4" />
         {isLoadingTasks ? (
           <div className="flex h-[200px] w-full flex-col items-center justify-center rounded-lg border">
