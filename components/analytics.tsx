@@ -1,0 +1,59 @@
+import { ProjectAnalyticsResponseType } from "@/features/projects/api/use-get-project-analytics";
+
+import { AnalyticsCard } from "./analytics-card";
+import { DottedSeparater } from "./dotted-separater";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+
+export const Analytics = ({ data }: ProjectAnalyticsResponseType) => {
+  return (
+    <ScrollArea className="w-full shrink-0 whitespace-nowrap rounded-lg border">
+      <div className="flex w-full flex-row">
+        <div className="flex flex-1 items-center">
+          <AnalyticsCard
+            title="Total tasks"
+            value={data.taskCount}
+            variant={data.taskDifference > 0 ? "up" : "down"}
+            increaseValue={data.taskDifference}
+          />
+          <DottedSeparater direction="vertical" />
+        </div>
+        <div className="flex flex-1 items-center">
+          <AnalyticsCard
+            title="Assigned tasks"
+            value={data.assignedTaskCount}
+            variant={data.assignedTaskDifference > 0 ? "up" : "down"}
+            increaseValue={data.assignedTaskDifference}
+          />
+          <DottedSeparater direction="vertical" />
+        </div>
+        <div className="flex flex-1 items-center">
+          <AnalyticsCard
+            title="Completed tasks"
+            value={data.completedTaskCount}
+            variant={data.completedTaskDifference > 0 ? "up" : "down"}
+            increaseValue={data.completedTaskDifference}
+          />
+          <DottedSeparater direction="vertical" />
+        </div>
+        <div className="flex flex-1 items-center">
+          <AnalyticsCard
+            title="Overdue tasks"
+            value={data.overdueTaskCount}
+            variant={data.overdueTaskDifference > 0 ? "up" : "down"}
+            increaseValue={data.overdueTaskDifference}
+          />
+          <DottedSeparater direction="vertical" />
+        </div>
+        <div className="flex flex-1 items-center">
+          <AnalyticsCard
+            title="Incomplete tasks"
+            value={data.incompleteTaskCount}
+            variant={data.incompleteTaskDifference > 0 ? "up" : "down"}
+            increaseValue={data.incompleteTaskDifference}
+          />
+        </div>
+      </div>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
+  );
+};
