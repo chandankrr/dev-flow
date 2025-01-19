@@ -15,11 +15,19 @@ export const TaskIdClient = () => {
   const { data, isLoading } = useGetTask({ taskId });
 
   if (isLoading) {
-    return <PageLoader />;
+    return (
+      <div className="min-h-[calc(100vh-210px)]">
+        <PageLoader />
+      </div>
+    );
   }
 
   if (!data) {
-    return <PageError message="Task not found" />;
+    return (
+      <div className="min-h-[calc(100vh-210px)]">
+        <PageError message="Task not found" />
+      </div>
+    );
   }
 
   return (

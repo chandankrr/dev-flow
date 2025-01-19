@@ -14,21 +14,19 @@ import {
 } from "@/components/ui/card";
 
 import { useJoinWorkspace } from "../api/use-join-workspace";
+import { useInviteCode } from "../hooks/use-invite-code";
+import { useWorkspaceId } from "../hooks/use-workspace-id";
 
 interface JoinWorkspaceFormProps {
   initialValue: {
     name: string;
   };
-  inviteCode: string;
-  workspaceId: string;
 }
 
-export const JoinWorkspaceForm = ({
-  initialValue,
-  inviteCode,
-  workspaceId,
-}: JoinWorkspaceFormProps) => {
+export const JoinWorkspaceForm = ({ initialValue }: JoinWorkspaceFormProps) => {
   const router = useRouter();
+  const workspaceId = useWorkspaceId();
+  const inviteCode = useInviteCode();
 
   const { mutate, isPending } = useJoinWorkspace();
 

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 
 import { DottedSeparater } from "@/components/dotted-separater";
+import { PageLoader } from "@/components/page-loader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -14,7 +15,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useDeleteMember } from "@/features/members/api/use-delete-member";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useUpdateMember } from "@/features/members/api/use-update-member";
@@ -49,14 +49,7 @@ export const MemberList = () => {
 
     if (!ok) return;
 
-    deleteMember(
-      { param: { memberId } },
-      {
-        onSuccess: () => {
-          router.refresh();
-        },
-      }
-    );
+    deleteMember({ param: { memberId } });
   };
 
   return (
@@ -78,17 +71,9 @@ export const MemberList = () => {
       </div>
 
       {isLoading ? (
-        [1, 2].map((_, i) => (
-          <CardContent key={i}>
-            <div className="flex items-center space-x-4">
-              <Skeleton className="size-10 flex-shrink-0 rounded-full" />
-              <div className="min-w-0 flex-grow space-y-2">
-                <Skeleton className="h-3 w-full max-w-[450px]" />
-                <Skeleton className="h-3 w-4/5 max-w-[350px]" />
-              </div>
-            </div>
-          </CardContent>
-        ))
+        <div className="flex min-h-[200px] items-center justify-center">
+          <PageLoader />
+        </div>
       ) : (
         <CardContent className="px-7 pb-7">
           {data?.documents.map((member, index) => (
