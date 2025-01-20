@@ -50,7 +50,7 @@ export const ProjectList = ({ data, total }: ProjectListProps) => {
               </Link>
             </li>
           ))}
-          <li className="hidden text-center text-sm text-muted-foreground first-of-type:block">
+          <li className="col-span-2 hidden text-center text-sm text-muted-foreground first-of-type:block">
             No project created
           </li>
         </ul>

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Icons } from "@/features/auth/components/icons";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -91,6 +92,7 @@ export const SignInCard = () => {
       </div>
       <CardContent className="flex flex-col gap-y-4 p-7">
         <Button
+          onClick={() => signUpWithGoogle()}
           disabled={isPending}
           variant="secondary"
           size="lg"
@@ -107,6 +109,7 @@ export const SignInCard = () => {
           variant="secondary"
           size="lg"
           className="w-full"
+          onClick={() => signUpWithGithub()}
         >
           <Icons.github
             size={20}

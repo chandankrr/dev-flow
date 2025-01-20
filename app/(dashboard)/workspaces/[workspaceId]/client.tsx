@@ -60,7 +60,7 @@ export const WorkspaceIdClient = () => {
     <div className="flex h-full flex-col space-y-4">
       <Analytics data={analytics} />
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-        <TaskList data={tasks.documents.slice(0, 6)} total={tasks.total} />
+        <TaskList data={tasks.documents.slice(0, 5)} total={tasks.total} />
         <div className="space-y-4">
           <ProjectList data={projects.documents} total={projects.total} />
           <MemberList data={members.documents} total={members.total} />
