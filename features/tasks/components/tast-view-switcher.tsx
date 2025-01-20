@@ -7,6 +7,7 @@ import { useCallback } from "react";
 import { DottedSeparater } from "@/components/dotted-separater";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useProjectId } from "@/features/projects/hooks/use-project-id";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
 import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
@@ -28,6 +29,7 @@ export const TaskViewSwitcher = ({
   hideProjectFilter,
 }: TaskViewSwitcherProps) => {
   const workspaceId = useWorkspaceId();
+  const paramProjectId = useProjectId();
 
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
@@ -38,7 +40,7 @@ export const TaskViewSwitcher = ({
 
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
-    projectId,
+    projectId: paramProjectId || projectId,
     assigneeId,
     status,
     dueDate,
