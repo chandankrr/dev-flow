@@ -7,18 +7,20 @@ import {
   DATABASE_ID,
   IMAGES_BUCKET_ID,
   MEMBERS_ID,
+  PROJECTS_ID,
   TASKS_ID,
   WORKSPACES_ID,
 } from "@/config";
-import { MemberRole } from "@/features/members/types";
+import { Member, MemberRole } from "@/features/members/types";
 import { getMember } from "@/features/members/utils";
-import { TaskStatus } from "@/features/tasks/types";
+import { Task, TaskStatus } from "@/features/tasks/types";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { generateInviteCode } from "@/lib/utils";
 import { zValidator } from "@hono/zod-validator";
 
 import { createWorkspaceSchema, updateWorkspaceSchema } from "../schemas";
 import { Workspace } from "../types";
+import { Project } from "@/features/projects/types";
 
 const app = new Hono()
   .get("/:workspaceId", sessionMiddleware, async (c) => {
@@ -192,6 +194,7 @@ const app = new Hono()
   .delete("/:workspaceId", sessionMiddleware, async (c) => {
     const databases = c.get("databases");
     const user = c.get("user");
+    const storage = c.get("storage");
 
     const { workspaceId } = c.req.param();
 
@@ -205,7 +208,70 @@ const app = new Hono()
       return c.json({ error: "Unauthorized" }, 401);
     }
 
-    // TODO: Delete memebers, projects, and tasks
+    const workspace = await databases.getDocument<Workspace>(
+      DATABASE_ID,
+      WORKSPACES_ID,
+      workspaceId
+    );
+
+    if (workspace.imageUrl) {
+      try {
+        const files = await storage.listFiles(IMAGES_BUCKET_ID);
+        const workspaceFile = files.files.find(async (file) => {
+          const preview = await storage.getFilePreview(
+            IMAGES_BUCKET_ID,
+            file.$id
+          );
+          const previewUrl = `data:image/png;base64,${Buffer.from(preview).toString("base64")}`;
+          return previewUrl === workspace.imageUrl;
+        });
+
+        if (workspaceFile) {
+          await storage.deleteFile(IMAGES_BUCKET_ID, workspaceFile.$id);
+        }
+      } catch (e) {
+        console.error("Failed to delete workspace image:", e);
+      }
+    }
+
+    const projects = await databases.listDocuments<Project>(
+      DATABASE_ID,
+      PROJECTS_ID,
+      [Query.equal("workspaceId", workspaceId)]
+    );
+
+    let tasks = { documents: [] as Task[] };
+
+    if (projects.documents.length > 0) {
+      const projectIds = projects.documents.map((project) => project.$id);
+      tasks = await databases.listDocuments<Task>(DATABASE_ID, TASKS_ID, [
+        Query.equal("projectId", projectIds),
+      ]);
+    }
+
+    const members = await databases.listDocuments<Member>(
+      DATABASE_ID,
+      MEMBERS_ID,
+      [Query.equal("workspaceId", workspaceId)]
+    );
+
+    await Promise.all(
+      tasks.documents.map((task) =>
+        databases.deleteDocument(DATABASE_ID, TASKS_ID, task.$id)
+      )
+    );
+
+    await Promise.all(
+      projects.documents.map((project) =>
+        databases.deleteDocument(DATABASE_ID, PROJECTS_ID, project.$id)
+      )
+    );
+
+    await Promise.all(
+      members.documents.map((member) =>
+        databases.deleteDocument(DATABASE_ID, MEMBERS_ID, member.$id)
+      )
+    );
 
     await databases.deleteDocument(DATABASE_ID, WORKSPACES_ID, workspaceId);
 
