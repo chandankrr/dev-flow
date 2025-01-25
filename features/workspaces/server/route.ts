@@ -45,7 +45,7 @@ const app = new Hono()
       workspaceId
     );
 
-    return c.json({ data: workspace });
+    return c.json({ data: { ...workspace, memberId: member.$id } });
   })
   .get("/:workspaceId/info", sessionMiddleware, async (c) => {
     const databases = c.get("databases");

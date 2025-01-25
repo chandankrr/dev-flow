@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { getCurrent } from "@/features/auth/queries";
-import { TaskViewSwitcher } from "@/features/tasks/components/tast-view-switcher";
+import { TaskViewSwitcher } from "@/features/tasks/components/task-view-switcher";
 
 const TaskPage = async () => {
   const user = await getCurrent();
@@ -9,7 +9,7 @@ const TaskPage = async () => {
 
   return (
     <div className="flex h-full flex-col">
-      <TaskViewSwitcher />
+      <TaskViewSwitcher hideAssigneeFilter isMyTaskPage />
     </div>
   );
 };

@@ -11,7 +11,7 @@ import { useGetProject } from "@/features/projects/api/use-get-project";
 import { useGetProjectAnalytics } from "@/features/projects/api/use-get-project-analytics";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { useProjectId } from "@/features/projects/hooks/use-project-id";
-import { TaskViewSwitcher } from "@/features/tasks/components/tast-view-switcher";
+import { TaskViewSwitcher } from "@/features/tasks/components/task-view-switcher";
 
 export const ProjectIdClient = () => {
   const projectId = useProjectId();

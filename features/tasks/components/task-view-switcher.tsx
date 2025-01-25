@@ -8,6 +8,7 @@ import { DottedSeparater } from "@/components/dotted-separater";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useProjectId } from "@/features/projects/hooks/use-project-id";
+import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
 import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
@@ -23,10 +24,14 @@ import { DataTable } from "./data-table";
 
 interface TaskViewSwitcherProps {
   hideProjectFilter?: boolean;
+  hideAssigneeFilter?: boolean;
+  isMyTaskPage?: boolean;
 }
 
 export const TaskViewSwitcher = ({
   hideProjectFilter,
+  hideAssigneeFilter,
+  isMyTaskPage = false,
 }: TaskViewSwitcherProps) => {
   const workspaceId = useWorkspaceId();
   const paramProjectId = useProjectId();
@@ -38,10 +43,12 @@ export const TaskViewSwitcher = ({
 
   const { open } = useCreateTaskModal();
 
+  const { data: workspace } = useGetWorkspace({ workspaceId });
+
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
     projectId: paramProjectId || projectId,
-    assigneeId,
+    assigneeId: isMyTaskPage ? workspace?.memberId : assigneeId,
     status,
     dueDate,
   });
@@ -81,7 +88,10 @@ export const TaskViewSwitcher = ({
           </Button>
         </div>
         <DottedSeparater className="my-4" />
-        <DataFilters hideProjectFilter={hideProjectFilter} />
+        <DataFilters
+          hideProjectFilter={hideProjectFilter}
+          hideAssigneeFilter={hideAssigneeFilter}
+        />
         <DottedSeparater className="my-4" />
         {isLoadingTasks ? (
           <div className="flex h-[200px] w-full flex-col items-center justify-center rounded-lg border">
