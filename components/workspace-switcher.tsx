@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { setLastWorkspaceId } from "@/lib/workspace-storage";
 
 export const WorkspaceSwitcher = () => {
   const workspaceId = useWorkspaceId();
@@ -23,6 +24,7 @@ export const WorkspaceSwitcher = () => {
   const { open } = useCreateWorkspaceModal();
 
   const onSelect = (id: string) => {
+    setLastWorkspaceId(id);
     router.push(`/workspaces/${id}`);
   };
 

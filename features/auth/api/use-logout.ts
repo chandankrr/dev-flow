@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { client } from "@/lib/rpc";
+import { clearLastWorkspaceId } from "@/lib/workspace-storage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type ResponseType = InferResponseType<(typeof client.api.auth.logout)["$post"]>;
@@ -25,6 +26,7 @@ export const useLogout = () => {
       toast.success("Logged out");
       router.refresh();
       queryClient.invalidateQueries();
+      clearLastWorkspaceId();
     },
     onError: () => {
       toast.error("Failed to logout");
