@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import { TestCredentials } from "@/components/test-credential";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -28,6 +29,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
         <div className="flex flex-col items-center justify-center py-4 md:py-14">
           {children}
         </div>
+        <TestCredentials />
       </div>
     </main>
   );
