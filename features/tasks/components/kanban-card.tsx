@@ -1,10 +1,11 @@
 import { MoreHorizontalIcon } from "lucide-react";
 
+import type { Task } from "../types";
+
 import { DottedSeparater } from "@/components/dotted-separater";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 
-import { Task } from "../types";
 import { TaskActions } from "./task-actions";
 import { TaskDate } from "./task-date";
 

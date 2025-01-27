@@ -1,12 +1,13 @@
 import { PencilIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
+import type { Task } from "../types";
+
 import { DottedSeparater } from "@/components/dotted-separater";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 import { useUpdateTask } from "../api/use-update-task";
-import { Task } from "../types";
 
 interface TaskDescriptionProps {
   task: Task;

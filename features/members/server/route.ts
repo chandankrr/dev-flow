@@ -2,12 +2,14 @@ import { Hono } from "hono";
 import { Query } from "node-appwrite";
 import { z } from "zod";
 
+import type { Member } from "../types";
+
 import { DATABASE_ID, MEMBERS_ID } from "@/config";
 import { createAdminClient } from "@/lib/appwrite";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { zValidator } from "@hono/zod-validator";
 
-import { Member, MemberRole } from "../types";
+import { MemberRole } from "../types";
 import { getMember } from "../utils";
 
 const app = new Hono()

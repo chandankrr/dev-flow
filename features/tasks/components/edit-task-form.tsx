@@ -3,6 +3,8 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import type { Task } from "../types";
+
 import { DottedSeparater } from "@/components/dotted-separater";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,7 +32,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useUpdateTask } from "../api/use-update-task";
 import { createTaskSchema } from "../schemas";
-import { Task, TaskStatus } from "../types";
+import { TaskStatus } from "../types";
 
 interface EditTaskFormProps {
   onCancel?: () => void;

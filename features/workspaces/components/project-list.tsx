@@ -1,12 +1,13 @@
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 
+import type { Project } from "@/features/projects/types";
+
 import { DottedSeparater } from "@/components/dotted-separater";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { useCreateProjectModal } from "@/features/projects/hooks/use-create-project-modal";
-import { Project } from "@/features/projects/types";
 
 import { useWorkspaceId } from "../hooks/use-workspace-id";
 

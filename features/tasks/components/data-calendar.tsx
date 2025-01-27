@@ -1,6 +1,8 @@
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./data-calendar.css";
 
+import type { Task } from "../types";
+
 import {
   addMonths,
   format,
@@ -16,7 +18,6 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 
 import { Button } from "@/components/ui/button";
 
-import { Task } from "../types";
 import { EventCard } from "./event-card";
 
 const locales = {

@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 
+import type { Task } from "../types";
+
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 
-import { Task, TaskStatus } from "../types";
+import { TaskStatus } from "../types";
 import { KanbanCard } from "./kanban-card";
 import { KanbanColumnHeader } from "./kanban-column-header";
 

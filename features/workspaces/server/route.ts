@@ -3,6 +3,11 @@ import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 import { z } from "zod";
 
+import type { Member } from "@/features/members/types";
+import type { Task } from "@/features/tasks/types";
+import type { Workspace } from "../types";
+import type { Project } from "@/features/projects/types";
+
 import {
   DATABASE_ID,
   IMAGES_BUCKET_ID,
@@ -11,16 +16,14 @@ import {
   TASKS_ID,
   WORKSPACES_ID,
 } from "@/config";
-import { Member, MemberRole } from "@/features/members/types";
+import { MemberRole } from "@/features/members/types";
 import { getMember } from "@/features/members/utils";
-import { Task, TaskStatus } from "@/features/tasks/types";
+import { TaskStatus } from "@/features/tasks/types";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { generateInviteCode } from "@/lib/utils";
 import { zValidator } from "@hono/zod-validator";
 
 import { createWorkspaceSchema, updateWorkspaceSchema } from "../schemas";
-import { Workspace } from "../types";
-import { Project } from "@/features/projects/types";
 
 const app = new Hono()
   .get("/:workspaceId", sessionMiddleware, async (c) => {

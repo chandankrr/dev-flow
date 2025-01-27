@@ -1,9 +1,9 @@
 import { Query } from "node-appwrite";
 
+import type { Workspace } from "./types";
+
 import { DATABASE_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
 import { createSessionClient } from "@/lib/appwrite";
-
-import { Workspace } from "./types";
 
 export const getWorkspace = async (workspaceId: string) => {
   const { databases } = await createSessionClient();

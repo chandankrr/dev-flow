@@ -2,6 +2,8 @@
 
 import { ArrowUpDown, MoreVerticalIcon } from "lucide-react";
 
+import type { Task } from "../types";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
@@ -9,7 +11,6 @@ import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { snakeCaseToTitleCase } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 
-import { Task } from "../types";
 import { TaskActions } from "./task-actions";
 import { TaskDate } from "./task-date";
 

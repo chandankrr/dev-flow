@@ -2,15 +2,17 @@ import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 import { z } from "zod";
 
+import type { Project } from "@/features/projects/types";
+import type { Task } from "../types";
+
 import { DATABASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 import { getMember } from "@/features/members/utils";
-import { Project } from "@/features/projects/types";
 import { createAdminClient } from "@/lib/appwrite";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { zValidator } from "@hono/zod-validator";
 
 import { createTaskSchema } from "../schemas";
-import { Task, TaskStatus } from "../types";
+import { TaskStatus } from "../types";
 
 const app = new Hono()
   .get(

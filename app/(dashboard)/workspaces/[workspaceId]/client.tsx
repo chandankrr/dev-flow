@@ -3,6 +3,8 @@
 import { SettingsIcon } from "lucide-react";
 import Link from "next/link";
 
+import type { Member } from "@/features/members/types";
+
 import { Analytics } from "@/components/analytics";
 import { DottedSeparater } from "@/components/dotted-separater";
 import { PageError } from "@/components/page-error";
@@ -11,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
-import { Member } from "@/features/members/types";
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
 import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
 import { useGetWorkspaceAnalytics } from "@/features/workspaces/api/use-get-workspace-analytics";

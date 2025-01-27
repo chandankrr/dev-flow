@@ -2,11 +2,12 @@ import { formatDistanceToNow } from "date-fns";
 import { CalendarIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
 
+import type { Task } from "@/features/tasks/types";
+
 import { DottedSeparater } from "@/components/dotted-separater";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useCreateTaskModal } from "@/features/tasks/hooks/use-create-task-modal";
-import { Task } from "@/features/tasks/types";
 
 import { useWorkspaceId } from "../hooks/use-workspace-id";
 

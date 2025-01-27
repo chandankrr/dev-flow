@@ -7,6 +7,8 @@ import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import type { Project } from "../types";
+
 import { DottedSeparater } from "@/components/dotted-separater";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -27,7 +29,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useDeleteProject } from "../api/use-delete-project";
 import { useUpdateProject } from "../api/use-update-project";
 import { updateProjectSchema } from "../schemas";
-import { Project } from "../types";
 
 interface EditProjectFormProps {
   onCancel?: () => void;

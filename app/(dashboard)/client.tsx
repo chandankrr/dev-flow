@@ -1,12 +1,14 @@
 "use client";
 
-import { Workspace } from "@/features/workspaces/types";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+import type { Workspace } from "@/features/workspaces/types";
+
 import {
   getLastWorkspaceId,
   setLastWorkspaceId,
 } from "@/lib/workspace-storage";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 interface WorkspaceRedirectClientProps {
   workspaces: {

@@ -1,9 +1,10 @@
 import { useRouter } from "next/navigation";
 
+import type { Member } from "@/features/members/types";
+import type { Project } from "@/features/projects/types";
+
 import { MemberAvatar } from "@/features/members/components/member-avatar";
-import { Member } from "@/features/members/types";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
-import { Project } from "@/features/projects/types";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
 
