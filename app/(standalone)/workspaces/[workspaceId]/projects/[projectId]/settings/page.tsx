@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { getCurrent } from "@/features/auth/queries";
 
 import { ProjectIdSettingsClient } from "./client";
+
+export const metadata: Metadata = {
+  title: "Project Settings",
+};
 
 const ProjectIdSettingsPage = async () => {
   const user = await getCurrent();

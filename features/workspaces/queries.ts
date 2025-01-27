@@ -5,6 +5,18 @@ import { createSessionClient } from "@/lib/appwrite";
 
 import { Workspace } from "./types";
 
+export const getWorkspace = async (workspaceId: string) => {
+  const { databases } = await createSessionClient();
+
+  const workspace = await databases.getDocument<Workspace>(
+    DATABASE_ID,
+    WORKSPACES_ID,
+    workspaceId
+  );
+
+  return { data: workspace.name };
+};
+
 export const getWorkplaces = async () => {
   const { account, databases } = await createSessionClient();
 

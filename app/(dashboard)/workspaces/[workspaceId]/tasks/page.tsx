@@ -1,7 +1,12 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { getCurrent } from "@/features/auth/queries";
 import { TaskViewSwitcher } from "@/features/tasks/components/task-view-switcher";
+
+export const metadata: Metadata = {
+  title: "My Tasks",
+};
 
 const TaskPage = async () => {
   const user = await getCurrent();

@@ -13,7 +13,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "DevFlow",
+  title: {
+    template: "%s - DevFlow",
+    default: "DevFlow",
+  },
   description: "A project management and issue-tracking tool.",
 };
 

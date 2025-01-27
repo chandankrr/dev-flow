@@ -1,7 +1,12 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { getCurrent } from "@/features/auth/queries";
 import { CreateWorkspaceForm } from "@/features/workspaces/components/create-workspace-form";
+
+export const metadata: Metadata = {
+  title: "Create Workspace",
+};
 
 const WorkspaceCreatePage = async () => {
   const user = await getCurrent();
